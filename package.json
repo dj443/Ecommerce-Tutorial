@@ -4,8 +4,14 @@
   "description": "Ecommerce web site Portfolio",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "start-server": "nodemon server.js"
   },
   "author": "DJ Lancaster",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.8",
+    "nodemon": "^2.0.4"
+  }
 }
