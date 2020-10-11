@@ -1,9 +1,56 @@
-import React from 'react';
+import React, {useState} from 'react';
+import isEmpty from 'validator/lib/isEmpty';
+import isEmail from 'validator/lib/isEmail';
+import equals from 'validator/lib/equals';
+import {Link} from 'react-router-dom';
+import {showErrorMsg} from '../Helpers/message';
+import './Signup.css';
 
 const SignUp = () => {
+    const[formData, setFormData] = useState({
+        username: '',
+        email: '',
+        password: '',
+        password2: '',
+        successMsg: false,
+        errorMsg: false,
+        loading: false
+    })
+    const {username, email, password, password2, successMsg, errorMsg, loading} = formData;
 
-    const showSignUpForm = () => {
-        <form className='signup-form'>
+    /* EVENT HANDLERS */
+    const handleChange = evt => {
+        //console.log(evt)
+        setFormData({
+            ...formData,
+            [evt.target.name]: evt.target.value,
+        });
+    }
+
+    const handleSubmit = evt => {
+        evt.preventDefault();
+
+        //Client side validation
+        if(isEmpty(username) || isEmpty(email) || isEmpty(password) || isEmpty(password2)) {
+            setFormData({
+                ...formData, errorMsg: "All fields required"
+            })
+        } else if(!isEmail(email)){
+            setFormData({
+                ...formData, errorMsg: 'Email required'
+            })            
+        } else if (!equals(password, password2)) {
+            setFormData({
+                ...formData, errorMsg: 'Passwords do not match!'
+            })
+        } else {
+            //Success Msg
+        }
+    }
+
+    /* VIEWS */
+    const showSignUpForm = () => (
+        <form className='signup-form' onSubmit={handleSubmit}>
             {/* usernamej*/}
             <div className='form-group input-group'>
                 <div clssName='input-group-prepend'>
@@ -12,10 +59,12 @@ const SignUp = () => {
                     </span>
                 </div>
                 <input
-                    name=''
+                    name='username'
+                    value={username}
                     className='form-control'
                     placeholder='Username'
                     type='text'
+                    onChange={handleChange}
                 />
             </div>
             {/* email */}
@@ -26,10 +75,12 @@ const SignUp = () => {
                     </span>
                 </div>
                 <input
-                    name=''
+                    name='email'
+                    value={email}
                     className='form-control'
                     placeholder='Email'
                     type='email'
+                    onChange={handleChange}
                 />
             </div>
             {/* Password */}
@@ -40,9 +91,12 @@ const SignUp = () => {
                     </span>
                 </div>
                 <input
+                    name='password'
+                    value={password}
                     className='form-control'
                     placeholder='Create password'
                     type='password'
+                    onChange={handleChange}
                 />
             </div>
             {/* password2 */}
@@ -53,15 +107,40 @@ const SignUp = () => {
                     </span>
                 </div>
                 <input
+                    name='password2'
+                    value={password2}
                     className='form-control'
                     placeholder='Confirm password'
                     type='password'
+                    onChange={handleChange}
                 />
             </div>
+            {/* submit button */}
+            <div className='form-group'>
+                <button type='submit' className='btn btn-primary btn-block'>
+                    Sign Up!
+                </button>
+            </div>
+            {/* Already have account */}
+            <p className='text-center text-white'>
+                Have an account? <Link to='/SignIn'>Log In</Link>
+            </p>
         </form>
-    }
-
-    return <h1>SignUp</h1>
+    )
+    
+    /* Renderer */
+    return (
+        <div className='signup-container'>
+            <div className='row px-3 vh-100'>
+                <div className='col-md-5 mx-auto align-self-center'>
+                    {showSignUpForm()}
+                    {errorMsg && showErrorMsg(errorMsg)}
+                    {JSON.stringify(formData)}
+                </div>
+            </div>
+        </div>
+    ) 
+    
 };
 
 export default SignUp;
