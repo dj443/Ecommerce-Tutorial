@@ -12,12 +12,13 @@ const SignUp = () => {
     const[formData, setFormData] = useState({
         username: 'dj',
         email: 'dj@email.com',
-        password: '123',
-        password2: '123',
+        password: '123456',
+        password2: '123456',
         successMsg: false,
         errorMsg: false,
         loading: false
-    })
+    });
+
     const {username, email, password, password2, successMsg, errorMsg, loading} = formData;
 
     /* EVENT HANDLERS */
@@ -31,7 +32,7 @@ const SignUp = () => {
         });
     }
 
-    const handleSubmit = evt => {
+    const handleSubmit = (evt) => {
         evt.preventDefault();
 
         //Client side validation
@@ -77,7 +78,7 @@ const SignUp = () => {
         <form className='signup-form' onSubmit={handleSubmit} noValidate>
             {/* usernamej*/}
             <div className='form-group input-group'>
-                <div clssName='input-group-prepend'>
+                <div className='input-group-prepend'>
                     <span className='input-group-text'>
                         <i className='fa fa-user'></i>
                     </span>
@@ -94,7 +95,7 @@ const SignUp = () => {
             {/* email */}
             <div className='form-group input-group'>
                 <div className='input-group-prepend'>
-                    <span claaName='input-group-text'>
+                    <span className='input-group-text'>
                         <i className='fa fa-envelope'></i>
                     </span>
                 </div>

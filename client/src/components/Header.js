@@ -6,7 +6,7 @@ const Header = () => {
     const showNavigation = () => (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                <Link className="navbar-toggler-icon"></Link>
+                <Link className="navbar-toggler-icon" to='/'></Link>
             </button>
             <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
                 <Link className="navbar-brand" to="/">Logo</Link>
