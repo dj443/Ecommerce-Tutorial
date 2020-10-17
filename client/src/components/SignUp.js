@@ -5,7 +5,6 @@ import equals from 'validator/lib/equals';
 import {Link} from 'react-router-dom';
 import {showErrorMsg, showSuccessMsg} from '../Helpers/message';
 import {showLoading} from '../Helpers/loading';
-import './Signup.css';
 import { signup } from '../api/auth';
 
 const SignUp = () => {

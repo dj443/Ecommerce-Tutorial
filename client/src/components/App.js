@@ -5,6 +5,7 @@ import Home from './Home';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 import NotFound from './NotFound';
+import './App.css';
 
 const App = () => (
   <BrowserRouter>
