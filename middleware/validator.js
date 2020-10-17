@@ -6,6 +6,11 @@ exports.signupValidator = [
     check('password').isLength({min: 6}).withMessage('Password must be at least six characters long')
 ];
 
+exports.signuinValidator = [
+    check('email').isEmail().normalizeEmail().withMessage('Invalid Email'),
+    check('password').isLength({min: 6}).withMessage('Password must be at least six characters long')
+];
+
 exports.validatorResult = (req, res, next) => {
     const result = validationResult(req);
     const hasErrors = !result.isEmpty();

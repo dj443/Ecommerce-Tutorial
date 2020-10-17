@@ -32,3 +32,7 @@ exports.signupController = async (req, res) => {
         });
     }
 };
+
+exports.signinController = async (req, res) => {
+    console.log('Inside signinController')
+};
