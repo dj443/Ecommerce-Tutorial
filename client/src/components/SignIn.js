@@ -4,7 +4,9 @@ import isEmail from 'validator/lib/isEmail';
 import {Link} from 'react-router-dom';
 import {showErrorMsg} from '../Helpers/message';
 import {showLoading} from '../Helpers/loading';
+import {setAuthentication, setAuthenticated} from '../Helpers/auth';
 import {signin} from '../api/auth';
+
 
 const SignIn = () => {
     //Set State
@@ -13,11 +15,10 @@ const SignIn = () => {
         password: '123456',
         errorMsg: false,
         loading: false,
-        redirectToDashboard: false,
     });
 
     //Destructure State
-    const {email, password, errorMsg, loading, redirectToDashboard} = formData;
+    const {email, password, errorMsg, loading} = formData;
 
      /* EVENT HANDLERS */
      const handleChange = evt => {
@@ -47,9 +48,21 @@ const SignIn = () => {
             setFormData({...formData, loading: true});
 
             signin(data)
+                .then((response) => {
+                    setAuthentication(response.data.token, response.data.user);
+
+                    if (setAuthenticated() && setAuthenticated().role === 1){
+                        console.log('Redirecting to admin dashboard');
+                    }else{
+                        console.log('Redirecting to user dashboard');
+                    }
+                })
+                .catch(err => {
+                    console.log('signin api function error: ', err);
+                })
                 
         }
-    }
+    };
 
     /* VIEWS */
     const showSignInForm = () => (

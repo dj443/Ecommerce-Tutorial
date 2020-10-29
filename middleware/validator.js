@@ -6,7 +6,7 @@ exports.signupValidator = [
     check('password').isLength({min: 6}).withMessage('Password must be at least six characters long')
 ];
 
-exports.signuinValidator = [
+exports.signinValidator = [
     check('email').isEmail().normalizeEmail().withMessage('Invalid Email'),
     check('password').isLength({min: 6}).withMessage('Password must be at least six characters long')
 ];
@@ -23,4 +23,4 @@ exports.validatorResult = (req, res, next) => {
     }
 
     next();
-}
+};

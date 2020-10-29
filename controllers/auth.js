@@ -36,6 +36,7 @@ exports.signupController = async (req, res) => {
 };
 
 exports.signinController = async (req, res) => {
+    console.log('inside signinController');
     const {email, password} = req.body;
 
     try {
