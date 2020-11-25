@@ -49,6 +49,7 @@ const SignIn = () => {
 
             signin(data)
                 .then((response) => {
+                    console.log('Axios signIn success', response);
                     setAuthentication(response.data.token, response.data.user);
 
                     if (setAuthenticated() && setAuthenticated().role === 1){
@@ -60,9 +61,8 @@ const SignIn = () => {
                 .catch(err => {
                     console.log('signin api function error: ', err);
                 })
-                
-        }
-    };
+        } 
+    }; 
 
     /* VIEWS */
     const showSignInForm = () => (

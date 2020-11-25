@@ -19,7 +19,7 @@ export const signin = async (data) => {
         },
     };
 
-    const response = await axios.post('/api/auth/signin', data, config);
-
+    const response = axios.post('/api/auth/signin', data, config);
+    
     return response;
 };
