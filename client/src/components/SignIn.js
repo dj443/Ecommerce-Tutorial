@@ -1,14 +1,24 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import isEmpty from 'validator/lib/isEmpty';
 import isEmail from 'validator/lib/isEmail';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {showErrorMsg} from '../Helpers/message';
 import {showLoading} from '../Helpers/loading';
-import {setAuthentication, setAuthenticated} from '../Helpers/auth';
+import {setAuthentication, isAuthenticated} from '../Helpers/auth';
 import {signin} from '../api/auth';
 
 
 const SignIn = () => {
+    let history = useHistory();
+
+    useEffect(() => {
+        if (isAuthenticated() && isAuthenticated().role === 1){
+            history.push('/admin/dashboard');
+        }else if(isAuthenticated() && isAuthenticated().role === 0){
+            history.push('/user/dashboard');
+        }
+    }, [history]);
+
     //Set State
     const [formData, setFormData] = useState({
         email: 'dj@email.com',
@@ -52,10 +62,12 @@ const SignIn = () => {
                     console.log('Axios signIn success', response);
                     setAuthentication(response.data.token, response.data.user);
 
-                    if (setAuthenticated() && setAuthenticated().role === 1){
+                    if (isAuthenticated() && isAuthenticated().role === 1){
                         console.log('Redirecting to admin dashboard');
+                        history.push('/admin/dashboard');
                     }else{
                         console.log('Redirecting to user dashboard');
+                        history.push('/user/dashboard');
                     }
                 })
                 .catch(err => {

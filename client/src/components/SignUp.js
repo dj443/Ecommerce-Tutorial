@@ -1,13 +1,24 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import isEmpty from 'validator/lib/isEmpty';
 import isEmail from 'validator/lib/isEmail';
 import equals from 'validator/lib/equals';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
+import {isAuthenticated} from '../Helpers/auth';
 import {showErrorMsg, showSuccessMsg} from '../Helpers/message';
 import {showLoading} from '../Helpers/loading';
 import { signup } from '../api/auth';
 
 const SignUp = () => {
+    let history = useHistory();
+
+    useEffect(() => {
+        if (isAuthenticated() && isAuthenticated().role === 1){
+            history.push('/admin/dashboard');
+        }else if(isAuthenticated() && isAuthenticated().role === 0){
+            history.push('/user/dashboard');
+        }
+    }, [history]);
+
     const[formData, setFormData] = useState({
         username: 'dj',
         email: 'dj@email.com',
