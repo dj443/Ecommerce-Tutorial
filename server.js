@@ -5,11 +5,13 @@ const morgan = require('morgan');
 const connectDB = require("./database/db");
 const authRoutes = require("./routes/auth");
 const categoryRoutes = require('./routes/category');
+const cookieParser = require('cookie-parser');
 
 //Middleware
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use('/api/category', categoryRoutes);
 

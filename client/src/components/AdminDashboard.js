@@ -37,6 +37,7 @@ const AdminDashboard = () => {
                 .then((response) => {
                     setLoading(false);
                     setSuccessMsg(response.data.successMessage);
+                    setCategory('');
                 })
                 .catch((err) => {
                     setLoading(false);
@@ -73,7 +74,7 @@ const AdminDashboard = () => {
                     </div>
 
                     <div className='col-md-4 my-1'>
-                        <button className='btn btn-outline-warning btn-block'>
+                        <button className='btn btn-outline-warning btn-block' data-toggle='modal' data-target='#addFoodModal'>
                             <i className='fas fa-plus'> Add Food</i>
                         </button>
                     </div>
@@ -125,6 +126,78 @@ const AdminDashboard = () => {
         </div>
     )
 
+    const showFoodModal = () => (
+        <div id='addFoodModal' className='modal' onClick={handleMessages}>
+            <div className='modal-dialog modal-dialog-center modal-lg'>
+                <div className='modal-content'>
+                    <form onSubmit={handleCategorySubmit}>
+                        <div className='modal-header bg-warning text-white'>
+                            <h5 className='modal-title'>Add Food</h5>
+                            <button className='close' data-dismiss='modal'>
+                                <span><i className='fas fa-times'></i></span>
+                            </button>
+                        </div>
+                        <div className='modal-body my-2'>
+                            {errorMsg && showErrorMsg(errorMsg)}
+                            {successMsg && showSuccessMsg(successMsg)}
+                            {loading ? (
+                                <div className='text-center'>{showLoading()}</div>
+                            ):(
+                                <Fragment>
+                                    <div className='custom-file mb-2'>
+                                        <input type='file' className='custom-file-input' />
+                                        <label className='custom-file-label'>Choose File</label>
+                                    </div>
+                                    <div className='form-group'>
+                                        <label className='text-secondary'>
+                                            Name
+                                        </label>
+                                        <input type='text' className='form-control' />
+                                    </div>
+                                    <div className='form-group'>
+                                        <label className='text-secondary'>Description</label>
+                                        <textarea className='form-control' rows='3'></textarea>
+                                    </div>
+                                    <div className='form-group'>
+                                        <label className='text-secondary'>Price</label>
+                                        <input type='text' className='form-control' />
+                                    </div>
+                                    <div className='form-row'>
+                                        <div className='form-group col-md-6'>
+                                            <label className='text-secondary'>
+                                                Category
+                                            </label>
+                                            <select className='custom-select ar-sm-2'>
+                                                <options>Choose one...</options>
+                                                <options>Pasta</options>
+                                                <options>Desserts</options>
+                                                <options>Drinks</options>
+                                            </select>
+                                        </div>
+                                        <div className='form-group col-md-4'>
+                                            <label className='text-secondary'>
+                                                Quantity
+                                            </label>
+                                            <input type='number' className='form-control' min='0' max='1000' />
+                                        </div>
+                                    </div>
+                                </Fragment>
+                            )}                            
+                        </div>
+                        <div className='modal-footer'>
+                            <button className='btn btn-secondary' data-dismiss='modal'>
+                                Close
+                            </button>
+                            <button className='btn btn-warning text-white' type='submit'>
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    )
+
     /*****************
      * Renderer
      ****************/
@@ -133,6 +206,7 @@ const AdminDashboard = () => {
             {showHeader()}
             {showActionBtn()}
             {showCategoryModal()}
+            {showFoodModal()}
         </section>
     )
 };
