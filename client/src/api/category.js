@@ -12,6 +12,7 @@ export const createCategory = async (formData) => {
     return response;
 }
 
+//Alternative to categoryActions
 export const getCategories = async () => {
     const response = await axios.get('/api/category');
 

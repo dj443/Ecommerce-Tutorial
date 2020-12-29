@@ -3,7 +3,7 @@ import {showErrorMsg, showSuccessMsg} from '../Helpers/message';
 import {showLoading} from '../Helpers/loading';
 import isEmpty from 'validator/lib/isEmpty';
 import {createProduct} from '../api/product';
-import {getCategories} from '../api/category'
+import {getCategories} from '../api/category';
 
 
 const AdminFoodModal = () => {
